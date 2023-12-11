@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% block content %}
+<div class="col-md-4">
+  <h4 class="text-center alert alert-info">Add New Student Here</h4>
+  <form action="" method="post">
+    {% csrf_token %}{{form.as_p}}
+    <input type="submit" class="btn btn-primary" value="Add" />
+  </form>
+</div>
+<div class="col-md-7 offset-1">
+  <h4 class="text-center alert alert-info">Student Information</h4>
+  {% if sdata %}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">City</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    {% for s in sdata %}
+    <tbody>
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{s.name}}</td>
+        <td>{{s.city}}</td>
+        <td>{{s.phone}}</td>
+        <td>
+          <a class="btn btn-outline-warning me-2" href="/update/{{s.id}}"
+            >Edit</a
+          >
+          <a class="btn btn-outline-danger" href="/delete/{{s.id}}">Delete</a>
+        </td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+  {% else %}
+  <h4 class="text-center alert alert-info">
+    Sorry, Student Information is not Available
+  </h4>
+  {% endif %}
+</div>
+{% endblock %}
